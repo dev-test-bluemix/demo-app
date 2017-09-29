@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=Avenir" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="static/stylesheets/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Material Design Bootstrap -->
+    <link href="static/stylesheets/css/mdb.min.css" rel="stylesheet">
+    <title>FIO labs</title>
+    <title>Title</title>
+    <style rel="stylesheet">
+        li {
+            width: 2em;
+            height: 2em;
+            text-align: center;
+            line-height: 2em;
+            border-radius: 1em;
+            background: #39B54A;
+            margin: 0 1em;
+            display: inline-block;
+            color: white;
+            position: relative;
+        }
+
+        li::before{
+            content: '';
+            position: absolute;
+            top: .9em;
+            left: -4em;
+            width: 4em;
+            height: .2em;
+            background: #39B54A;
+            z-index: -1;
+        }
+
+
+
+        li:first-child::before {
+            display: none;
+        }
+
+        .active {
+            background: #39B54A;
+        }
+
+        .active ~ li {
+            background: #F4E532;
+        }
+
+        .active ~ li::before {
+            background: #F4E532;
+        }
+
+        body {
+            font-family: sans-serif;
+            padding: 2em;
+        }
+        .pointer{
+            cursor: pointer;
+        }
+        .footer {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            padding: 1rem;
+            background-color: #39B54A;
+            color: #F4E532;
+            font-size: small;
+            text-align: center;
+        }
+        .opt {
+            list-style: none;
+            height: auto;
+            width: 100%;
+            margin: 0;
+            padding-bottom: 40px;
+        }
+
+        .imgsdiv{
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        .opt div{
+            color: #AAAAAA;
+            display: block;
+            position: relative;
+            width: 100%;
+            height: 60px;
+        }
+
+        .opt div input[type=radio]{
+            position: absolute;
+            vertical-align: top;
+            visibility: hidden;
+        }
+
+        .opt div label{
+            display: block;
+            position: relative;
+            font-weight: 300;
+            font-size: 1.35em;
+            padding: 25px 25px 25px 80px;
+            margin: 10px auto;
+            vertical-align: top;
+            height: 30px;
+            z-index: 9;
+            cursor: pointer;
+            -webkit-transition: all 0.25s linear;
+        }
+
+        .opt div:hover label{
+            color: #F4E532;
+        }
+
+        .opt div .check{
+            display: block;
+            position: absolute;
+            border: 5px solid #AAAAAA;
+            border-radius: 100%;
+            height: 25px;
+            width: 25px;
+            vertical-align: top;
+            top: 30px;
+            left: 20px;
+            z-index: 5;
+            transition: border .25s linear;
+            -webkit-transition: border .25s linear;
+        }
+
+        .opt div:hover .check {
+            border: 5px solid #F4E532;
+        }
+
+        .opt div .check::before {
+            display: block;
+            position: absolute;
+            content: '';
+            border-radius: 100%;
+            height: 15px;
+            width: 15px;
+            margin: auto;
+            transition: background 0.25s linear;
+            -webkit-transition: background 0.25s linear;
+        }
+
+        input[type=radio]:checked ~ .check {
+            border: 5px solid #F4E532;
+        }
+
+        input[type=radio]:checked ~ .check::before{
+            background: #39B54A;
+        }
+
+        input[type=radio]:checked ~ label{
+            color: #39B54A;
+        }
+
+        input[type=radio]:checked + label>img  {
+            border: 5px solid #39B54A;
+            box-shadow: 0px 0px 10px 3px #39B54A;
+
+        }
+
+        .input-hidden {
+            position: absolute;
+            left: -9999px;
+        }
+
+        input[type=radio]:checked + label>img {
+            border: 1px solid #39B54A;
+            box-shadow: 0px 0px 10px 3px #39B54A;
+        }
+
+        input[type=radio] + label>img {
+            cursor: pointer;
+            border: 1px solid #F4E532;
+            width: 130px;
+            height: 130px;
+            transition: 500ms all;
+        }
+
+        input[type=radio]:checked + label>img {
+            transform:
+                    rotateZ(-10deg)
+                    rotateX(10deg);
+        }
+
+        .questionitem{
+            height: 350px;
+        }
+        .player{
+            border: 1px solid transparent;
+            border-radius: 50px;
+            -webkit-transition: border 0.5s linear, box-shadow 0.5s linear;
+            -moz-transition: border 0.5s linear, box-shadow 0.5s linear;
+            transition: border 0.5s linear, box-shadow 0.5s linear;
+        }
+        .playing{
+            border-color: #39B54A;
+            border-radius: 50px;
+            -webkit-box-shadow: 0 0 100px #39B54A;
+            -moz-box-shadow: 0 0 100px #39B54A;
+            box-shadow: 0 0 100px #39B54A;
+        }
+        .no-border{
+            border: none;
+        }
+
+        #demo {
+            position: relative;
+            height: auto;
+            letter-spacing: -1px;
+            font-weight: 300;
+            font-size: x-large;
+        }
+        .typeout {
+            color: #39B54A;
+        }
+        .typeout:after {
+            -webkit-animation: 0.5s blink step-end infinite;
+            -moz-animation: 0.5s blink step-end infinite;
+            -ms-animation: 0.5s blink step-end infinite;
+            -o-animation: 0.5s blink step-end infinite;
+            animation: 0.5s blink step-end infinite;
+            content: '|';
+            padding-left: 2px;
+
+            color: #F4E532;
+        }
+        .typeout.typeout-complete:after {
+            content: none;
+        }
+        @keyframes blink {
+            from, to {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+        @-moz-keyframes blink {
+            from, to {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+        @-webkit-keyframes blink {
+            from, to {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+        @-ms-keyframes blink {
+            from,to {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+        @-o-keyframes blink {
+            from,to {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+        #minwiddiv{
+            background: #ffffff;
+            width: 70%;
+            padding: 20px 20px 20px 20px;
+            border-radius: 10px;
+            text-align:center;
+            vertical-align:middle;
+            display:none;
+            margin-top: -2%;
+        }
+
+        @media screen and (max-width: 1200px) and (min-width: 100px){
+            #welcomediv,#quizdiv{
+                display: none;
+            }
+            #minwiddiv{
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body style="font-family: 'Avenir', sans-serif;">
+
+
+<div class="blue-grey">
+    <div class="full-bg-img flex-center" style="background: #39B54A">
+        <div class="animated fadeInUp" id="quizdiv" style="background: #ffffff;width: 70%; padding: 20px 20px 0px 20px; border-radius: 10px;margin-top: -2%;display: none">
+            <div class="col-lg-12" style="position:relative;">
+                <div class="col-lg-12" style="text-align: right">
+                    <img src="static/stylesheets/imgs/saphirelogo.png" width="100px" height="70px" alt="fiolabs_logo">
+                </div>
+                <div class="col-lg-12" id="q_nav" style="padding-top: 30px">
+                    <ul>
+                        <li class="active"><a style="color: #FFFFFF" id="a1" href="#">1</a></li>
+                        <li><a style="color: #FFFFFF" id="a2" href="#">2</a></li>
+                        <li><a style="color: #FFFFFF" id="a3" href="#">3</a></li>
+                        <li><a style="color: #FFFFFF" id="a4" href="#">4</a></li>
+                        <li><a style="color: #FFFFFF" id="a5" href="#">5</a></li>
+                        <li><a style="color: #FFFFFF" id="a6" href="#">6</a></li>
+                        <li><a style="color: #FFFFFF" id="a7" href="#">7</a></li>
+                        <li><a style="color: #FFFFFF" id="a8" href="#">8</a></li>
+                        <li><a style="color: #FFFFFF" id="a9" href="#">9</a></li>
+                        <li><a style="color: #FFFFFF" id="a10" href="#">10</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-12" id="questionswrapper" style="height:350px;overflow: hidden">
+                    <div class="col-lg-12" id="questionslist" style="height:350px;overflow: hidden">
+                    <form id="formChildsHolder" action="" method="post">
+                        <input type="hidden" id="username" value="">
+                        <input type="hidden" id="email" value="">
+
+                    <!--   First Question   -->
+
+                        <fieldset class="col-lg-12 questionitem">
+                            <div class="col-lg-12" style="text-align: left;padding-left: 50px">
+                                <h5 style="padding-bottom: 3px">You got a second job offer that pays good but not of your interest, while the first job offers a less pay but great value to your career, you'd
+                                </h5>
+                            </div>
+                            <div class="col-lg-12">
+                                <!--<div class="col-lg-1"></div>-->
+                                <!--<div class="col-lg-12">-->
+                                    <div class="opt" style="padding-left: 10px">
+                                        <div>
+                                            <input type="radio" id="f-option1" name="selector1" value="Accept the offer and work discreetly with no major routine changes" required>
+                                            <label for="f-option1" style="font-size: large">Accept the offer and work discreetly with no major routine changes</label>
+                                            <div class="check">
+
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <input type="radio" id="s-option1" name="selector1" value="Accept the offer and let the management know" required>
+                                            <label for="s-option1">Accept the offer and let the management know</label>
+                                            <div class="check">
+                                                <div class="inside">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <input type="radio" id="t-option1" name="selector1" value="Take the management's approval and then accept the offer" required>
+                                            <label for="t-option1">Take the management's approval and then accept the offer</label>
+                                            <div class="check">
+                                                <div class="inside">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <input type="radio" id="e-option1" name="selector1" value="Decline the offer" required>
+                                            <label for="e-option1">Decline the offer</label>
+                                            <div class="check">
+                                                <div class="inside">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <!--</div>-->
+                                <!--<div class="col-lg-1"></div>-->
+                            </div>
+                        </fieldset>
+
+                        <!--   First Question   -->
+
+
+                        <!--   Second Question   -->
+
+
+                        <fieldset class="col-lg-12 questionitem">
+                            <div class="col-lg-12" style="text-align: center">
+                                <h3>What is your favorite Mobile OS ?</h3>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="col-lg-3"></div>
+                                <div class="col-lg-6">
+                                    <div class="opt">
+                                        <div>
+                                            <input type="radio" id="f-option2" name="selector2" value="android.jpg">
+                                            <label for="f-option2">
+                                                <img src="static/stylesheets/imgs/android.jpg" class="optionimg" style="margin-top: -20px;width: 70px;height: 70px;" width="70px" height="70px">
+                                            </label>
+                                            <div class="check">
+
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <input type="radio" id="s-option2" name="selector2" value="apple.png">
+                                            <label for="s-option2">
+                                                <img src="static/stylesheets/imgs/apple.png" class="optionimg" style="margin-top: -20px;width: 70px;height: 70px;" width="70px" height="70px">
+                                            </label>
+                                            <div class="check">
+                                                <div class="inside">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <input type="radio" id="t-option2" name="selector2" value="blackberry.jpg">
+                                            <label for="t-option2">
+                                                <img src="static/stylesheets/imgs/blackberry.jpg" class="optionimg" style="margin-top: -20px;width: 70px;height: 70px;" width="70px" height="70px">
+                                            </label>
+                                            <div class="check">
+                                                <div class="inside">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <input type="radio" id="e-option2" name="selector2" value="windows.jpg">
+                                            <label for="e-option2">
+                                                <img src="static/stylesheets/imgs/windows.jpg" class="optionimg" style="margin-top: -20px;width: 70px;height: 70px;" width="70px" height="70px">
+                                            </label>
+                                            <div class="check">
+                                                <div class="inside">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3"></div>
+                            </div>
+                        </fieldset>
+
+
+                        <!--   Second Question   -->
+
+
+
+                        <!--   Third Question   -->
+
+
+
+                        <fieldset class="col-lg-12 questionitem">
+                            <div class="col-lg-12" style="text-align: center">
+                                <h3>Pick your favorite dialog ?</h3>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="col-lg-3"></div>
+                                <div class="col-lg-6">
+                                    <div class="opt">
+                                        <div>
+                                            <input type="radio" id="f-option3" name="selector3" value="attitude.mp3">
+                                            <audio class="song" src="attitude.mp3" id="1track1" type="audio/mp3">
+                                            </audio>
+                                            <label for="f-option3"><img src="static/stylesheets/imgs/play.png" class="player" style="margin-top: -10px" width="50px" height="50px" id="track1"> &nbsp;&nbsp;&nbsp;Attitude</label>
+                                            <div class="check"></div>
+                                        </div>
+                                        <div>
+                                            <input type="radio" id="s-option3" name="selector3" value="smartnconfident.mp3">
+                                            <audio class="song" src="static/smartnconfident.mp3" id="2track2" type="audio/mp3">
+                                            </audio>
+                                            <label for="s-option3"><img src="static/stylesheets/imgs/play.png" class="player" style="margin-top: -10px" width="50px" height="50px"  id="track2"> &nbsp;&nbsp;&nbsp;Smart N Confident</label>
+                                            <div class="check">
+                                                <div class="inside">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <input type="radio" id="t-option3" name="selector3" value="emotional.mp3">
+                                            <audio class="song" src="static/emotional.mp3" id="3track3" type="audio/mp3"></audio>
+                                            <label for="t-option3"><img src="static/stylesheets/imgs/play.png" class="player" style="margin-top: -10px" width="50px" height="50px"  id="track3"> &nbsp;&nbsp;&nbsp;Emotional</label>
+                                            <div class="check">
+                                                <div class="inside">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <input type="radio" id="e-option3" name="selector3" value="aggressive.mp3">
+                                            <audio class="song" src="static/aggressive.mp3" id="4track4" type="audio/mp3"></audio>
+
+                                            <label for="e-option3"><img src="static/stylesheets/imgs/play.png" class="player" style="margin-top: -10px" width="50px" height="50px"  id="track4"> &nbsp;&nbsp;&nbsp;Aggressive</label>
+                                            <div class="check">
+                                                <div class="inside">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3"></div>
+                            </div>
+                        </fieldset>
+
+
+
+
+                        <!--   Third Question   -->
+
+                        <!--   Fourth Question   -->
+
+                        <fieldset class="col-lg-12 questionitem">
+                            <div class="col-lg-12" style="text-align: center">
+                                <h3>What is your favorite cusine ?</h3>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="col-lg-3"></div>
+                                <div class="col-lg-6">
+                                    <div class="opt">
+                                        <div>
+                                            <input type="radio" id="f-option4" name="selector4" value="Continental">
+                                            <label for="f-option4">Continental</label>
+                                            <div class="check">
+
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <input type="radio" id="s-option4" name="selector4" value="Italian">
+                                            <label for="s-option4">Italian</label>
+                                            <div class="check">
+                                                <div class="inside">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <input type="radio" id="t-option4" name="selector4" value="Indian">
+                                            <label for="t-option4">Indian</label>
+                                            <div class="check">
+                                                <div class="inside">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <input type="radio" id="e-option4" name="selector4" value="Chinese">
+                                            <label for="e-option4">Chinese</label>
+                                            <div class="check">
+                                                <div class="inside">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3"></div>
+                            </div>
+                        </fieldset>
+
+
+                        <!--   Fourth Question   -->
+
+
+                        <!--   Fifth Question   -->
+
+
+
+                        <fieldset class="col-lg-12 questionitem">
+                            <div class="col-lg-12" style="text-align: center">
+                                <h5>All of a sudden, you got stuck in a closed elevator with 2 strangers, you'd ?</h5>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="col-lg-2"></div>
+                                <div class="col-lg-8">
+                                    <div class="opt">
+                                        <div>
+                                            <input type="radio" id="f-option5" name="selector5" value="Scream for help to raise an alarm">
+                                            <label for="f-option5" style="font-size: large;padding-top: 28px">Scream for help to raise an alarm</label>
+                                            <div class="check">
+
+                                            </div>
+                                        </div>
+                                        <div style="margin-top: -20px">
+                                            <input type="radio" id="s-option5" name="selector5" value="Stay calm and let the others react coz of the knowledge lack">
+                                            <label for="s-option5" style="font-size: large;padding-top: 28px">Stay calm and let the others react coz of the knowledge lack</label>
+                                            <div class="check">
+                                                <div class="inside">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div style="margin-top: -20px">
+                                            <input type="radio" id="t-option5" name="selector5" value="Stay calm for 5 mins and plan an alternative with the fellow strangers">
+                                            <label for="t-option5" style="font-size: large;padding-top: 28px">Stay calm for 5 mins and plan an alternative with the fellow strangers</label>
+                                            <div class="check">
+                                                <div class="inside">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div style="margin-top: -20px">
+                                            <input type="radio" id="e-option5" name="selector5" value="Pick up the phone and ask for a technician">
+                                            <label for="e-option5" style="font-size: large;padding-top: 28px">Pick up the phone and ask for a technician</label>
+                                            <div class="check">
+                                                <div class="inside">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div style="margin-top: -20px">
+                                            <input type="radio" id="ee-option5" name="selector5" value="I am a bit of c & d">
+                                            <label for="ee-option5" style="font-size: large;padding-top: 28px">I am a bit of c & d</label>
+                                            <div class="check">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2"></div>
+                            </div>
+                        </fieldset>
+
+
+
+                        <!--   Fifth Question   -->
+
+
+
+
+
+
+
+                        <!--   Sixth Question   -->
+
+                        <fieldset class="col-lg-12 questionitem">
+                            <div class="col-lg-12" style="text-align: center">
+                                <h5>A mistake of yours that has been done in secret has disrupted the relationships with in your friends, you'd</h5>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="col-lg-1"></div>
+                                <div class="col-lg-10">
+                                    <div class="opt">
+                                        <div>
+                                            <input type="radio" id="f-option6" name="selector6" value="Confront the mistake and stay calm">
+                                            <label for="f-option6">Confront the mistake and stay calm</label>
+                                            <div class="check">
+
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <input type="radio" id="s-option6" name="selector6" value="Confront the mistake and act responsible for the next steps">
+                                            <label for="s-option6">Confront the mistake and act responsible for the next steps</label>
+                                            <div class="check">
+                                                <div class="inside">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <input type="radio" id="t-option6" name="selector6" value="Act responsible for the future actions and still keep the secret hidden">
+                                            <label for="t-option6">Act responsible for the future actions and still keep the secret hidden</label>
+                                            <div class="check">
+                                                <div class="inside">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <input type="radio" id="e-option6" name="selector6" value="Leave it to the time to fix the relationships">
+                                            <label for="e-option6">Leave it to the time to fix the relationships</label>
+                                            <div class="check">
+                                                <div class="inside">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-1"></div>
+                            </div>
+                        </fieldset>
+
+                        <!--   Sixth Question   -->
+
+
+                        <!--   Seventh Question   -->
+
+
+                        <fieldset class="col-lg-12 questionitem">
+                            <div class="col-lg-12" style="text-align: center">
+                                <h3>Whom do you think you'd most associate with ?</h3>
+                            </div>
+                            <div class="col-lg-12">
+                                <!--<div class="col-lg-3"></div>-->
+                                <div class="col-lg-12 imgsdiv" style="margin-left:0%;padding-top: 50px">
+                                    <input
+                                            type="radio" name="selector7" value="imgs/stevejobs.png"
+                                            id="f-option7" class="input-hidden" />
+                                    <label for="f-option7" style="padding-right: 3%">
+                                        <img
+                                                src="static/stylesheets/imgs/stevejobs.png"
+                                                alt="stevejobs" />
+                                    </label>
+
+                                    <input
+                                            type="radio" name="selector7" value="imgs/obama.jpg"
+                                            id="s-option7" class="input-hidden" />
+                                    <label for="s-option7"  style="padding-right: 3%">
+                                        <img
+                                                src="static/stylesheets/imgs/obama.jpg"
+                                                alt="obama" />
+                                    </label>
+                                    <input
+                                            type="radio" name="selector7" value="imgs/warrenbuffet.jpg"
+                                            id="t-option7" class="input-hidden" />
+                                    <label for="t-option7" style="padding-right: 3%">
+                                        <img
+                                                src="static/stylesheets/imgs/warrenbuffet.jpg"
+                                                alt="warrenbuffet" />
+                                    </label>
+
+                                    <input
+                                            type="radio" name="selector7" value="imgs/satyanadella.jpg"
+                                            id="e-option7" class="input-hidden" />
+                                    <label for="e-option7">
+                                        <img
+                                                src="static/stylesheets/imgs/satyanadella.jpg"
+                                                alt="satyanadella" />
+                                    </label>
+                                </div>
+                                <!--<div class="col-lg-3"></div>-->
+                            </div>
+                        </fieldset>
+
+
+                        <!--   Seventh Question   -->
+
+
+
+                        <!--   Eigth Question   -->
+
+
+
+                        <fieldset class="col-lg-12 questionitem">
+                            <div class="col-lg-12" style="text-align: center">
+                                <h3>Your approach to adapt the best to the changes made in your professional community ?</h3>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="col-lg-2"></div>
+                                <div class="col-lg-8">
+                                    <div class="opt">
+                                        <div>
+                                            <input type="radio" id="f-option8" name="selector8" value="Learn the changes, analyse them and plan accordingly">
+                                            <label for="f-option8" style="font-size: large;padding-top: 28px">Learn the changes, analyse them and plan accordingly</label>
+                                            <div class="check">
+
+                                            </div>
+                                        </div>
+                                        <div style="margin-top: -20px">
+                                            <input type="radio" id="s-option8" name="selector8" value="Talk to the Community leaders for the impact">
+                                            <label for="s-option8" style="font-size: large;padding-top: 28px">Talk to the Community leaders for the impact</label>
+                                            <div class="check">
+                                                <div class="inside">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div style="margin-top: -20px">
+                                            <input type="radio" id="t-option8" name="selector8" value="Work on techniques to adapt and help the fellow community members">
+                                            <label for="t-option8" style="font-size: large;padding-top: 28px">Work on techniques to adapt and help the fellow community members</label>
+                                            <div class="check">
+                                                <div class="inside">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div style="margin-top: -20px">
+                                            <input type="radio" id="e-option8" name="selector8" value="More of b and less of c">
+                                            <label for="e-option8" style="font-size: large;padding-top: 28px">More of b and less of c</label>
+                                            <div class="check">
+                                                <div class="inside">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div style="margin-top: -20px">
+                                            <input type="radio" id="ee-option8" name="selector8" value="Less of b and more of c">
+                                            <label for="ee-option8" style="font-size: large;padding-top: 28px">Less of b and more of c</label>
+                                            <div class="check">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2"></div>
+                            </div>
+                        </fieldset>
+
+
+
+
+                        <!--   Eigth Question   -->
+
+                        <!--   Ninth Question   -->
+
+
+                        <fieldset class="col-lg-12 questionitem">
+                            <div class="col-lg-12" style="text-align: center">
+                                <h3>Where among these you want to go next ?</h3>
+                            </div>
+                            <div class="col-lg-12">
+                                <!--<div class="col-lg-3"></div>-->
+                                <div class="col-lg-12 imgsdiv" style="margin-left:0%;padding-top: 50px">
+                                    <input
+                                            type="radio" name="selector7" value="imgs/downtown.jpg"
+                                            id="f-option9" class="input-hidden" />
+                                    <label for="f-option9" style="padding-right: 3%">
+                                        <img
+                                                src="static/stylesheets/imgs/downtown.jpg"
+                                                alt="downtown" />
+                                    </label>
+
+                                    <input
+                                            type="radio" name="selector7" value="imgs/cliffside.jpg"
+                                            id="s-option9" class="input-hidden" />
+                                    <label for="s-option9"  style="padding-right: 3%">
+                                        <img
+                                                src="static/stylesheets/imgs/cliffside.jpg"
+                                                alt="cliffside" />
+                                    </label>
+                                    <input
+                                            type="radio" name="selector7" value="imgs/scubadiving.jpg"
+                                            id="t-option9" class="input-hidden" />
+                                    <label for="t-option9" style="padding-right: 3%">
+                                        <img
+                                                src="static/stylesheets/imgs/scubadiving.jpg"
+                                                alt="scubadiving" />
+                                    </label>
+
+                                    <input
+                                            type="radio" name="selector7" value="imgs/beach.jpg"
+                                            id="e-option9" class="input-hidden" />
+                                    <label for="e-option9">
+                                        <img
+                                                src="static/stylesheets/imgs/beach.jpg"
+                                                alt="beach" />
+                                    </label>
+                                </div>
+                                <!--<div class="col-lg-3"></div>-->
+                            </div>
+                        </fieldset>
+
+
+                        <!--   Ninth Question   -->
+
+
+                        <!--   Tenth Question   -->
+
+
+
+                        <fieldset class="col-lg-12 questionitem">
+                            <div class="col-lg-12" style="text-align: center">
+                                <h5>You just concluded a project successfully and got a break of 3 days ! You'd</h5>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="col-lg-1"></div>
+                                <div class="col-lg-10">
+                                    <div class="opt">
+                                        <div>
+                                            <input type="radio" id="f-option10" name="selector10" value="Pack your bags and get out of town ensuring you are fully off the grid">
+                                            <label for="f-option10" style="font-size: large">Pack your bags and get out of town ensuring you are fully off the grid</label>
+                                            <div class="check">
+
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <input type="radio" id="s-option10" name="selector10" value="Get out of town however ensure you can be connected always">
+                                            <label for="s-option10" style="font-size: large">Get out of town however ensure you can be connected always</label>
+                                            <div class="check">
+                                                <div class="inside">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <input type="radio" id="t-option10" name="selector10" value="Stay at home & relax">
+                                            <label for="t-option10" style="font-size: large">Stay at home & relax</label>
+                                            <div class="check">
+                                                <div class="inside">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <input type="radio" id="e-option10" name="selector10" value="Use this time to catchup on technologies and network with tech peers and leaders">
+                                            <label for="e-option10" style="font-size: large">Use this time to catchup on technologies and network with tech peers and leaders</label>
+                                            <div class="check">
+                                                <div class="inside">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-1"></div>
+
+                            </div>
+                        </fieldset>
+
+
+
+                        <!--   Tenth Question   -->
+
+
+
+
+                        <!--ThankYou Slide-->
+
+
+                        <fieldset class="col-lg-12 questionitem">
+                            <div class="col-lg-12" style="text-align: center">
+                                <br><br><br>
+                                <h2 style="color: #39B54A">Please click submit to confirm your responses</h2>
+                                <br>
+                            </div>
+                            <div class="col-lg-12" style="text-align: center">
+
+                                <button type="submit" class="btn" style="border-radius: 50px;font-size:xx-large;background: #39B54A">Submit</button>
+
+                            </div>
+                        </fieldset>
+
+
+
+                        <!--ThankYou Slide-->
+
+
+
+
+
+
+
+
+
+                        <!--<fieldset class="col-lg-12 questionitem"><div class="col-lg-12" style="text-align: center"> <h3>'+data.questions[i].question+'</h3> </div> <div class="col-lg-12" id="optionsdiv"> <div class="col-lg-3"></div> <div class="col-lg-6"><div class="opt"><div> <input type="radio" id="f-option" name="selector"> <label for="f-option">'+data.questions[i].opt1+'</label><div class="check"></div> </div> <div> <input type="radio" id="s-option" name="selector"> <label for="s-option">'+data.questions[i].opt2+'</label> <div class="check"><div class="inside"></div></div> </div> <div> <input type="radio" id="t-option" name="selector"> <label for="t-option">'+data.questions[i].opt3+'</label> <div class="check"><div class="inside"></div></div> </div> <div> <input type="radio" id="e-option" name="selector"> <label for="e-option">'+data.questions[i].opt4+'</label> <div class="check"><div class="inside"></div></div> </div> </div> </div> <div class="col-lg-3"></div> </div></fieldset>-->
+                        <!---->
+
+
+
+                    </form>
+                    </div>
+
+            </div>
+                <div class="col-lg-12" style="padding-bottom: 20px">
+                    <button class="btn next_btn" id="1" style="float: right;border-radius: 50px;background-color: #39B54A">Next</button>
+                    <button class="btn prev_btn" id="0" style="float: left;border-radius: 50px;background-color: #39B54A">Prev</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="animated fadeInUp" id="welcomediv" style="background: #ffffff;width: 30%; padding: 20px 20px 20px 20px; border-radius: 10px;text-align:center;margin-top: -2%">
+            <h1 style="color: #39B54A">Welcome Saba !</h1><br>
+            <label style="padding-bottom: 20px;"><font size="12" id="demo"><span class="typeout">Ready to take the test ?</span></font></label>
+            <br><img src="static/stylesheets/imgs/down.png" width="50px" height="20px" style="display: none;cursor: pointer" id="start">
+
+        </div>
+        <div class="animated fadeInUp" id="minwiddiv">
+            <h3 style="color: #39B54A">Please increase the window size or make fullscreen to continue quiz !</h3><br><br>
+            <img src="static/stylesheets/imgs/fullscreen.png" width="100px" height="100px" >
+
+        </div>
+
+    </div>
+</div>
+<div class="footer">
+    Copyright &copy; 2016, SAPHIRE <br> FIO LABS,LLC.
+</div>
+<script type="text/javascript" src="static/stylesheets/js/jquery-2.2.3.min.js"></script>
+<script type="text/javascript" src="static/stylesheets/js/mdb.min.js"></script>
+<script type="text/javascript" src="static/stylesheets/js/typing.js"></script>
+
+
+<script>
+    typeout('.typeout', ['All the Best '], {
+        numLoops: 1,
+        interval:5,
+        min:65,
+        callback: function(el) {
+            el.innerHTML += ".";
+            $('#start').fadeIn('slow');
+        }
+    });
+    $(function () {
+        $('#start').click(function () {
+            $('#welcomediv').hide();
+            $('#quizdiv').show();
+        });
+        var current =1;
+        var questionitemHeight = 0;
+        var heights = new Array();
+
+        $('#questionslist .questionitem').each(function (i) {
+            var $questionitem = $(this);
+            heights[i] = questionitemHeight;
+            questionitemHeight += $questionitem.height();
+        });
+        $('#questionslist').height(questionitemHeight);
+
+        $('#q_nav a').bind('click', function(e) {
+            var $this = $(this);
+            var prev = current;
+            $this.closest('ul').find('li').removeClass('active');
+            $this.parent().addClass('active');
+            $('.prev_btn').attr('id',$this.parent().index());
+            current = $this.parent().index() + 1;
+            $('.next_btn').attr('id',current);
+            $('#formChildsHolder').stop().animate({marginTop: '-' + heights[current - 1] + 'px'},500,function () {
+                
+            });
+            e.preventDefault();
+        });
+        $('.next_btn').click(function (e) {
+            var id = parseInt($(this).attr('id'));
+            if(id<10){
+                id = id+1;
+                $('#a'+id).closest('ul').find('li').removeClass('active');
+                $('#a'+id).parent().addClass('active');
+                $('.prev_btn').attr('id',$('#a'+id).parent().index());
+                current = $('#a'+id).parent().index() + 1;
+                $('.next_btn').attr('id',current);
+                $('#formChildsHolder').stop().animate({marginTop: '-' + heights[current - 1] + 'px'},500,function () {
+
+                });
+                e.preventDefault();
+            }else if(id==10){
+                $('.prev_btn').attr('id',10);
+                $('#formChildsHolder').stop().animate({marginTop: '-' + heights[current] + 'px'},500,function () {
+
+                });
+                e.preventDefault();
+            }
+        });
+        $('.prev_btn').click(function (e) {
+            var id = parseInt($(this).attr('id'));
+            if(id>0){
+                $('#a'+id).closest('ul').find('li').removeClass('active');
+                $('#a'+id).parent().addClass('active');
+                $('.prev_btn').attr('id',$('#a'+id).parent().index());
+                current = $('#a'+id).parent().index() + 1;
+                $('.next_btn').attr('id',current);
+                $('#formChildsHolder').stop().animate({marginTop: '-' + heights[current - 1] + 'px'},500,function () {
+
+                });
+                e.preventDefault();
+            }
+        });
+        var mytrack;
+        $('.player').click(function () {
+                if($(this).attr('id')==='track1'){
+                    playit(1);
+                }
+                if($(this).attr('id')==='track2'){
+                    playit(2);
+                }
+            if($(this).attr('id')==='track3'){
+                playit(3);
+            }
+            if($(this).attr('id')==='track4'){
+                playit(4);
+            }
+            if($(this).attr('id')==='track5'){
+                playit(5);
+            }
+            if($(this).attr('id')==='track6'){
+                playit(6)
+            }
+            if($(this).attr('id')==='track7'){
+                playit(7);
+            }
+            if($(this).attr('id')==='track8'){
+                playit(8);
+            }
+        });
+        var interval;
+        var check = true;
+        var previd = -1;
+        var prevtrack;
+        function playit(id) {
+            $('.player').each(function () {
+                $(this).attr('src','static/stylesheets/imgs/play.png');
+                $(this).removeClass('playing');
+            });
+            $('.song').each(function () {
+               $(this).stop();
+            });
+            if(check){
+               check = false;
+                previd = id;
+            }else{
+                if(previd!=id){
+                    mytrack.pause();
+                }
+                previd = id;
+            }
+            mytrack = document.getElementById(id+'track'+id);
+            if(!mytrack.paused && !mytrack.ended){
+                mytrack.pause();
+                $('#track'+id).attr('src','static/stylesheets/imgs/play.png');
+                window.clearInterval(interval);
+                $('#track'+id).removeClass('playing');
+
+            }else{
+                mytrack.play();
+                $('#track'+id).attr('src','static/stylesheets/imgs/pause.png');
+                window.clearInterval(interval);
+                interval = window.setInterval(function() {
+                    if(mytrack.ended){
+                        $('#track'+id).attr('src','static/stylesheets/imgs/play.png');
+                        window.clearInterval(interval);
+                    }
+                    $('#track'+id).toggleClass('playing');
+                }, 500);
+            }
+        }
+    });
+</script>
+</body>
+</html>

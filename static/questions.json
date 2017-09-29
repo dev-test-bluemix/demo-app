@@ -1,0 +1,54 @@
+{
+  "questions" : [{
+    "type" : "radio",
+    "question": "What is your favorite color ?",
+    "opt1" : "red",
+    "opt2" : "blue",
+    "opt3" : "green",
+    "opt4" : "yellow"
+  },
+    {
+      "type" : "radio",
+      "question": "What is your favorite sport ?",
+      "opt1" : "cricket",
+      "opt2" : "hockey",
+      "opt3" : "baseball",
+      "opt4" : "basketball"
+    },
+    {
+      "type" : "radio",
+      "question": "What is your favorite cusine ?",
+      "opt1" : "continental",
+      "opt2" : "italian",
+      "opt3" : "indian",
+      "opt4" : "chinese"
+    },
+    {
+      "type" : "radio",
+      "question": "What is your favorite movie ?",
+      "opt1" : "bahubali",
+      "opt2" : "one nenokadiney",
+      "opt3" : "troy",
+      "opt4" : "mummy"
+    },
+    {
+      "type" : "audio",
+      "question" : "Which of these audio clips you liked the most ?",
+      "opt1" : "music1.mp3",
+      "opt2" : "music2.mp3",
+      "opt3" : "music3.mp3",
+      "opt4" : "music4.mp3"
+    },
+    {
+      "type" : "image",
+      "question" : "Which is you favorite mobile OS ?",
+      "opt1" : "android.jpg",
+      "opt2" : "apple.png",
+      "opt3" : "windows.jpg",
+      "opt4" : "blackberry.jpg"
+    },
+    {
+      "type" : "userdef",
+      "question" : "Whats your dream career ?"
+    }]
+}

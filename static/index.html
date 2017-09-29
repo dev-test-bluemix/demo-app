@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Avenir" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="static/stylesheets/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Material Design Bootstrap -->
+    <link href="static/stylesheets/css/mdb.min.css" rel="stylesheet">
+    <title>FIO labs</title>
+    <style rel="stylesheet">
+        .footer {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            padding: 1rem;
+            background-color: #39B54A;
+            color: #F4E532;
+            font-size: small;
+            text-align: center;
+        }
+        .fileUpload {
+            position: relative;
+            overflow: hidden;
+            margin: 10px;
+        }
+        .fileUpload input.upload {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 0;
+            padding: 0;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0;
+            filter: alpha(opacity=0);
+        }
+        #fnamelab{
+            color: #39B54A;
+            opacity: 0.5;
+            margin-left: 25.25%;
+        }
+        #lnamelab{
+            color: #39B54A;
+            opacity: 0.5;
+            margin-left: 26%;
+        }
+        #emaillab{
+            color: #39B54A;
+            opacity: 0.5;
+            margin-left: 35%;
+        }
+        #mmlab{
+            color: #39B54A;
+            opacity: 0.5;
+        }
+        #ddlab{
+            color: #39B54A;
+            opacity: 0.5;
+        }
+        #doblab{
+            color: #39B54A;
+            opacity: 0.5;
+        }
+        #uploadlab{
+            color: #39B54A;
+            opacity: 0.5;
+        }
+        #yylab{
+            color: #39B54A;
+            opacity: 0.5;
+        }
+        #twitterlab{
+            color: #39B54A;
+            opacity: 0.5;
+            margin-left: 24%;
+        }
+        #centerdiv{
+            background: #ffffff;
+            padding: 28px 20px 0px 20px;
+            border-radius: 10px;
+            max-width: 400px;
+            margin-top: -20px;
+        }
+        #admindiv{
+            background: #ffffff;
+            padding: 28px 20px 0px 20px;
+            width: 50%;
+            max-width: 400px;
+            border-radius: 10px;
+            margin-top: -20px;
+            display: none;
+        }
+        #startbtn{
+            background: #39B54A;
+            font-size: large;
+        }
+        #loginbtn{
+            background: #39B54A;
+            font-size: large;
+        }
+        #uploadbtn{
+            background: #FFFFFF;
+            border-radius: 50px;
+            border: 1px solid #F4E532;
+            margin-top: 0px;
+        }
+        .topcorner{
+            cursor: pointer;
+            position:absolute;
+            text-align: center;
+            vertical-align: middle;
+            border-radius: 30px;
+            border: 2px solid #c0c0c0;
+            margin-top: 10px;
+            margin-right: 10px;
+            top:0;
+            right:0;
+            padding-top: 15px;
+            padding-right: 0px;
+            width:60px;
+            height: 60px;
+            z-index: 50;
+        }
+        #adminusernamelab{
+            color: #39B54A;
+            opacity: 0.5;
+            margin-left: 39%;
+        }
+        #adminpasswordlab{
+            color: #39B54A;
+            opacity: 0.5;
+            margin-left: 40%;
+        }
+
+        @media screen and (max-width: 1000px) and (min-width: 200px) {
+            #twitterlab,#emaillab,#fnamelab,#lnamelab{
+                margin-left: 0%;
+            }
+            #adminpasswordlab,#adminusernamelab{
+                margin-left: 37%;
+            }
+            #startbtn{
+                /*margin-top: -30px;*/
+            }
+            #centerdiv{
+                margin-top: -25px;
+                max-width: 300px;
+                overflow-y: scroll;
+                z-index: 1;
+            }
+            #admindiv{
+                width: 300px;
+                max-width: 300px;
+                z-index: 1;
+            }
+        }
+    </style>
+</head>
+<body style="font-family: 'Avenir', sans-serif">
+
+
+
+
+<div class="blue-grey">
+    <div class="topcorner"><img src="static/stylesheets/imgs/admin.png" height="20px" width="20px" ></div>
+    <div class="full-bg-img flex-center" style="background: #39B54A">
+        <div class="animated fadeInUp"  id="centerdiv">
+            <!--<div class="col-lg-12">-->
+                <div class="col-lg-12" style="text-align: center">
+                    <img src="http://fiolabs.com/wp-content/uploads/2016/10/Fio-Web-Logo-2-3.png" alt="fiolabs_logo" width="40%" height="auto">
+                </div>
+                <div class="col-lg-12" style="padding-top: 15px;margin-bottom: -20px;text-align: center">
+                    <div class="col-lg-12">
+                        <form action="servlet1" method="get">
+                            <div style="width: 100%;display: flex">
+                                <div style="width: 5%;">
+                                    <div class="md-form">
+                                        <!--<label style="font-size: xx-large;padding-left: 20px">/</label>-->
+                                    </div>
+                                </div>
+                                <div style="width: 90%;">
+                                    <div class="md-form">
+                                        <input type="text" id="fname" name="firstname" class="form-control alphaonly" style="border-color: #F4E532;opacity: 0.6;text-align: center;padding: 0px 0px 7px 0px " required>
+                                        <label for="fname" id="fnamelab" style="font-size: small">Enter your First Name*</label>
+                                    </div>
+                                </div>
+                                <div style="width: 5%;">
+                                    <div class="md-form">
+                                        <!--<label style="font-size: xx-large;padding-left: 20px">/</label>-->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="width: 100%;display: flex">
+                                <div style="width: 5%;">
+                                    <div class="md-form">
+                                        <!--<label style="font-size: xx-large;padding-left: 20px">/</label>-->
+                                    </div>
+                                </div>
+                                <div style="width: 90%;">
+                                    <div class="md-form">
+                                        <input type="text" id="lname" name="lastname" class="form-control alphaonly" style="border-color: #F4E532;opacity: 0.6;text-align: center;padding: 0px 0px 7px 0px " required>
+                                        <label for="lname" id="lnamelab" style="font-size: small">Enter your Last Name*</label>
+                                    </div>
+                                </div>
+                                <div style="width: 5%;">
+                                    <div class="md-form">
+                                        <!--<label style="font-size: xx-large;padding-left: 20px">/</label>-->
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                                <label class="col-lg-12" id="doblab">Enter your date of birth*</label>
+
+                            <div style="width: 100%;display: flex">
+                                <div style="width: 5%;">
+                                    <div class="md-form">
+                                        <!--<label style="font-size: xx-large;padding-left: 20px">/</label>-->
+                                    </div>
+                                </div>
+                                <div style="width: 20%;">
+                                    <div class="md-form">
+                                        <input type="number" min="1" max="12" id="mm" name="month" style="border-color: #F4E532;opacity: 0.6;text-align: center;padding: 0px 0px 7px 0px " class="form-control" required>
+                                        <label for="mm" id="mmlab" style="font-size: small;margin-left: 30%">MM</label>
+                                    </div>
+                                </div>
+                                <div style="width: 10%;">
+                                    <div class="md-form">
+                                        <!--<label style="font-size: xx-large;padding-left: 20px">/</label>-->
+                                    </div>
+                                </div>
+                                <div style="width: 20%">
+                                    <div class="md-form">
+                                        <input type="number" min="1" max="31" id="dd" name="date" style="border-color: #F4E532;opacity: 0.6;text-align: center;padding: 0px 0px 7px 0px " class="form-control" required>
+                                        <label for="dd" id="ddlab" style="font-size: small;margin-left: 30%">DD</label>
+                                    </div>
+                                </div>
+                                <div style="width: 10%;">
+                                    <div class="md-form">
+                                        <!--<label style="font-size: xx-large;padding-left: 20px">/</label>-->
+                                    </div>
+                                </div>
+                                <div style="width: 30%">
+                                    <div class="md-form">
+                                        <input type="number" min="1970" max="2016" id="yy" name="year" class="form-control" style="border-color: #F4E532;opacity: 0.6;text-align: center;padding: 0px 0px 7px 0px " required>
+                                        <label for="yy" id="yylab" style="font-size: small;margin-left: 30%">YYYY</label>
+                                    </div>
+                                </div>
+                                <div style="width: 5%;">
+                                    <div class="md-form">
+                                        <!--<label style="font-size: xx-large;padding-left: 20px">/</label>-->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="width: 100%;display: flex">
+                                <div style="width: 5%;">
+                                    <div class="md-form">
+                                        <!--<label style="font-size: xx-large;padding-left: 20px">/</label>-->
+                                    </div>
+                                </div>
+                                <div style="width: 90%;">
+                                    <div class="md-form">
+                                        <input type="email" id="email" name="email" class="form-control" style="border-color: #F4E532;opacity: 0.6;text-align: center;padding: 0px 0px 7px 0px " required>
+                                        <label for="email" id="emaillab" style="font-size: small">Email Address*</label>
+                                    </div>
+                                </div>
+                                <div style="width: 5%;">
+                                    <div class="md-form">
+                                        <!--<label style="font-size: xx-large;padding-left: 20px">/</label>-->
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div style="width: 100%;display: flex">
+                                <div style="width: 5%;">
+                                    <div class="md-form">
+                                        <!--<label style="font-size: xx-large;padding-left: 20px">/</label>-->
+                                    </div>
+                                </div>
+                                <div style="width: 90%;">
+                                    <div class="md-form">
+                                        <input type="text" id="twitter" name="twittername" class="form-control" style="border-color: #F4E532;opacity: 0.6;text-align: center;padding: 0px 0px 7px 0px " required>
+                                        <label for="twitter" id="twitterlab" style="font-size: small">Enter your Twitter name*</label>
+                                    </div>
+                                </div>
+                                <div style="width: 5%;">
+                                    <div class="md-form">
+                                        <!--<label style="font-size: xx-large;padding-left: 20px">/</label>-->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <label class="col-lg-12" id="uploadlab" style="margin-top: -15px">&nbsp;</label>
+                            <div class="md-form"  style="text-align: center">
+                                <div class="fileUpload btn" id="uploadbtn">
+                                    <span style="color: #39B54A;opacity: 0.5">Upload Resume*</span>
+                                    <input type="file" id="uploadfile" accept=".pdf,.doc,.docx" name="filename" class="upload" required/>
+                                </div>
+                            </div>
+                            <div class="md-form" style="text-align: center;margin-top: -45px">
+                                <Button type="submit" id="startbtn" class="btn" style="border-radius: 5px">Start</Button>
+                            </div>
+                        </form>
+                        </div>
+                </div>
+            </div>
+
+        <div class="animated fadeInUp"  id="admindiv">
+            <div class="col-lg-12" style="text-align: center">
+                <img src="http://fiolabs.com/wp-content/uploads/2016/10/Fio-Web-Logo-2-3.png" alt="fiolabs_logo" width="30%" height="auto">
+            </div>
+            <form action="servlet1" method="post" style="padding-top: 50px">
+                <div class="md-form">
+                    <input type="text" id="adminusername" name="adminusername" class="form-control" style="border-color: #F4E532;opacity: 0.6;text-align: center" required>
+                    <label for="adminusername" id="adminusernamelab">Username</label>
+                </div>
+                <div class="md-form">
+                    <input type="password" id="adminpassword"  name="adminpassword" class="form-control" style="border-color: #F4E532;opacity: 0.6;text-align: center" required>
+                    <label for="adminpassword" id="adminpasswordlab">Password</label>
+                </div>
+                <div class="md-form" style="text-align: center">
+                    <Button type="submit" id="loginbtn" class="btn">Login</Button>
+                </div>
+            </form>
+        </div>
+        <!--</div>-->
+
+    </div>
+</div>
+<div class="footer">
+    Copyright &copy; 2016, SAPHIRE <br> FIO LABS,LLC.
+</div>
+
+<script type="text/javascript" src="static/stylesheets/js/jquery-2.2.3.min.js"></script>
+<script type="text/javascript" src="static/stylesheets/js/mdb.min.js"></script>
+<script>
+    $(function () {
+        $('#uploadfile').change(function (e) {
+            $('#uploadlab').text(e.target.files[0].name);
+        });
+        var num = 0;
+        $('.topcorner').click(function () {
+            if(num%2==0){
+                $('#centerdiv').hide();
+                $('#admindiv').slideDown();
+            }else{
+                $('#centerdiv').slideDown();
+                $('#admindiv').hide();
+            }
+            num = num+1;
+        });
+        $('.alphaonly').bind('keyup input',function()
+        {
+            if (this.value.match(/[^a-zA-Z áéíóúÁÉÍÓÚüÜ]/g))
+            {
+                this.value = this.value.replace(/[^a-zA-Z áéíóúÁÉÍÓÚüÜ]/g, '');
+            }
+        });
+
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Avenir" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="static/stylesheets/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Material Design Bootstrap -->
+    <link href="static/stylesheets/css/mdb.min.css" rel="stylesheet">
+    <title>FIO labs</title>
+    <style>
+
+        .node {
+            stroke-width: 1px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container-fluid" id="homepane" style="text-align: center;height:100%;width: 100%;position:absolute;vertical-align: middle">
+    <div class="col-lg-12" id="mainpane" style="height: 100%">
+        <div class="col-lg-6" id="finance_social_holder" style="height: 100%;background: pink">
+            <div class="col-lg-12" id="finance_holder" style="height: 50%;background: blue">
+
+            </div>
+            <div class="col-lg-12" id="social_holder" style="height: 50%;background: red">
+
+            </div>
+        </div>
+        <div class="col-lg-6" id="health_happy_holder" style="height: 100%">
+            <div class="col-lg-12" id="health_holder" style="height: 50%;background: purple">
+
+            </div>
+            <div class="col-lg-12" id="happy_holder" style="height: 50%;background: green">
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="static/stylesheets/js/jquery-2.2.3.min.js"></script>
+<script type="text/javascript" src="static/stylesheets/js/mdb.min.js"></script>
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script>
+$(function () {
+    var width = document.getElementById("finance_holder").clientWidth,
+            height = document.getElementById("finance_holder").clientHeight;
+
+    var aspectratio = width/height;
+    var nodes = [{"radius":20},{"radius":20},{"radius":30},{"radius":25},{"radius":15},{"radius":40},{"radius":35}];
+    var force = d3.layout.force().gravity(0.05)
+            .charge(function(d, i) { return i ? 0 : -1000; })
+            .size([width, height]);
+
+
+
+//    var drag = d3.behavior.drag().on('drag', function() { d3.select(this).attr('cx', d3.event.x).attr('cy', d3.event.y); });
+
+
+
+
+    var financesvg = d3.select("#finance_holder").append("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .append("g");
+
+    force.nodes(nodes).start();
+
+    var financemaincircle = financesvg.append("circle")
+            .attr("class", "node")
+            .attr("r", width/7)
+            .call(force.drag)
+            .style("fill", "purple");
+
+    var circleOX = parseInt(financemaincircle.attr("cx")) + parseInt(parseInt(financemaincircle.attr("r")) * Math.sin(0));
+    var circleOY = parseInt(financemaincircle.attr("cy")) - parseInt(parseInt(financemaincircle.attr("r")) * Math.cos(0));
+
+    var circle1 = financesvg
+            .append("circle")
+            .attr("class", "node")
+            .attr('r', 20)
+            .call(force.drag)
+            .style("fill", "red");
+
+    var circle2 = financesvg
+            .append("circle")
+            .attr("class", "node")
+            .attr('r', 30)
+            .call(force.drag)
+            .style("fill", "yellow");
+
+    var circle3 = financesvg
+            .append("circle")
+            .attr("class", "node")
+            .attr('r', 25)
+            .call(force.drag)
+            .style("fill", "skyblue");
+
+    var circle4 = financesvg
+            .append("circle")
+            .attr("class", "node")
+            .attr('r', 15)
+            .call(force.drag)
+            .style("fill", "orange");
+
+    var circle5 = financesvg
+            .append("circle")
+            .attr("class", "node")
+            .attr('r', 40)
+            .call(force.drag)
+            .style("fill", "pink");
+
+    var circle6 = financesvg
+            .append("circle")
+            .attr("class", "node")
+            .attr('r', 35)
+            .call(force.drag)
+            .style("fill", "white");
+
+    var keys = [circle1,circle2,circle3,circle4,circle5,circle6];
+
+    var circles = financesvg.selectAll("circle.node")
+            .data(nodes)
+            .enter().append("circle")
+            .attr("class", "node")
+            .attr('r', 35)
+            .call(force.drag)
+            .style("fill", "white");
+
+    force.on("tick", function() {
+
+        financesvg.selectAll("circle.node")
+                .attr("cx", function(d) {return d.x;})
+                .attr("cy", function(d) { return d.y; });
+
+        financemaincircle.attr("cx",width/2)
+                .attr("cy",height/2);
+    });
+
+
+
+
+    // Move nodes toward cluster focus.
+    function gravity(alpha) {
+        return function(d) {
+            d.y += (d.cy - d.y) * alpha;
+            d.x += (d.cx - d.x) * alpha;
+        };
+    }
+
+    // Resolve collisions between nodes.
+    function collide(alpha) {
+        var quadtree = d3.geom.quadtree(nodes);
+        return function(d) {
+            alert(parseInt(d.attr("r")));
+            var r = parseInt(d.attr("r")) + 40 + 3,
+                    nx1 = parseInt(d.attr("cx")) - r,
+                    nx2 = parseInt(d.attr("cx")) + r,
+                    ny1 = parseInt(d.attr("cy")) - r,
+                    ny2 = parseInt(d.attr("cy")) + r;
+            quadtree.visit(function(quad, x1, y1, x2, y2) {
+                if (quad.point && (quad.point !== d)) {
+                    var x = d.x - quad.point.x,
+                            y = d.y - quad.point.y,
+                            l = Math.sqrt(x * x + y * y),
+                            r = d.radius + quad.point.radius + (d.color !== quad.point.color) * padding;
+                    if (l < r) {
+                        l = (l - r) / l * alpha;
+                        d.x -= x *= l;
+                        d.y -= y *= l;
+                        quad.point.x += x;
+                        quad.point.y += y;
+                    }
+                }
+                return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
+            });
+        };
+    }
+
+
+
+//    var circle,circle1;
+//
+//
+//
+//    circle1 = financesvg
+//            .append('svg:circle')
+//            .attr('class', "node")
+//            .attr('cx', circleOX+75)
+//            .attr('cy', circleOY-10)
+//            .attr('r', 30)
+//            .call(force.drag)
+//            .style('fill', 'pink');
+
+
+//    $(window).on("resize", function() {
+//        var targetWidth = document.getElementById("finance_holder").clientWidth;
+//        var targetHeight = document.getElementById("finance_holder").clientHeight;
+//
+//        financesvg.attr("width",targetWidth);
+//        financesvg.attr("height",targetHeight);
+//        financemaincircle.attr("cx", targetWidth/2);
+//        financemaincircle.attr("cy", targetHeight/2);
+//        financemaincircle.attr("r", targetWidth/6);
+//        circleOX = parseInt(financemaincircle.attr("cx")) + parseInt((financemaincircle.attr("r")) * Math.sin(0));
+//        circleOY = parseInt(financemaincircle.attr("cy")) - parseInt((financemaincircle.attr("r")) * Math.cos(0));
+//        circle.attr('cx', circleOX-20).attr('cy', circleOY-20).attr('r', 20);
+//        circle1.attr('cx', circleOX+75).attr('cy', circleOY-10).attr('r', 30);
+//    }).trigger("resize");
+
+
+
+
+});
+
+
+
+</script>
+</html>

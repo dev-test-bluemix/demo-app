@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<table cellpadding="0" cellspacing="0" border="0">
+    <tbody>
+<%
+<!--write the connection opening and database accessing objects here-->
+String type = request.getParameter("type");
+if(type!=null && type.contains("_")){
+    String[] container = type.split("_");
+    String field = container[0];
+    String change = container[1];
+
+    if(change == "dec"){
+<!--write the resultset query here the field needed to be sorted is in field variable and sort it in decending order-->
+    }else{
+<!--write the resultset query here the field needed to be sorted is in field variable and sort it in increasing order-->
+    }
+
+    while(rs.next()){
+<!--write the rs.getString methods in every td tag given below according to the class name given-->
+        %>
+        <tr>
+            <td class="username-td">Sameer</td>
+            <td class="email-td">smaeer@fiolabs.com</td>
+            <td class="dob-td">12-08-1994</td>
+            <td class="ts-td">80</td>
+            <td class="cs-td">80</td>
+            <td class="ss-td">90</td>
+            <td class="zodiac-td">Aries</td>
+            <td class="rs-td">100</td>
+            <td class="skills-td">documentation,internet surfing,palying</td>
+            <td class="quiz-td"><input type="checkbox"></td>
+        </tr>
+
+        <%
+    }
+}else{
+<!--write the initial condition of result set i.e before sorting here to load basic admin is type is null-->
+        %>
+            <tr>
+                <td class="username-td">Sameer</td>
+                <td class="email-td">smaeer@fiolabs.com</td>
+                <td class="dob-td">12-08-1994</td>
+                <td class="ts-td">80</td>
+                <td class="cs-td">80</td>
+                <td class="ss-td">90</td>
+                <td class="zodiac-td">Aries</td>
+                <td class="rs-td">100</td>
+                <td class="skills-td">documentation,internet surfing,palying</td>
+                <td class="quiz-td"><input type="checkbox"></td>
+            </tr>
+        <%
+}
+
+
+%>
+    </tbody>
+</body>
+</html>

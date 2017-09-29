@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Avenir" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Material Design Bootstrap -->
+    <link href="css/mdb.min.css" rel="stylesheet">
+    <title>FIO labs</title>
+    <style rel="stylesheet">
+        #centerdiv{
+            background: #ffffff;
+            border-radius: 10px;
+            max-width: 400px;
+        }
+        #startbtn{
+            background: #39B54A;
+            font-size: large;
+        }
+        #mmlab,#ddlab,#yylab{
+            color: #39B54A;
+            opacity: 0.5;
+        }
+        @media screen and (max-width: 1000px) and (min-width: 200px) {
+            #centerdiv{
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body style="font-family: 'Avenir', sans-serif">
+<div class="full-bg-img flex-center" style="background: #39B54A">
+    <div class="animated fadeInUp col-lg-4" id="centerdiv" style="background: #FFFFFF;padding: 20px;border-radius: 10px">
+        <div class="col-lg-12" style="text-align: center">
+            <img src="imgs/saphirelogo.png" alt="fiolabs_logo" width="20%" height="auto" style="padding-bottom: 20px">
+        </div>
+        <form action="index.html">
+            <div id="firstnamediv" style="text-align: center;color: #39B54A;opacity: 0.6">
+                <h5 id="firstnameh5">Whats your first name ?</h5>
+                <input id="firstnameinput" type="text" class="col-lg-12" style="border-color: #F4E532;opacity: 0.6;text-align: center;padding: 0px 0px 7px 0px;color: #39B54A" autofocus>
+            </div>
+            <div id="lastnamediv" style="text-align: center;color: #39B54A;opacity: 0.6;display: none">
+                <h5 id="lastnameh5"></h5>
+                <input id="lastnameinput" type="text" class="col-lg-12" style="border-color: #F4E532;opacity: 0.6;text-align: center;padding: 0px 0px 7px 0px;color: #39B54A">
+            </div>
+            <div id="dobdiv" style="text-align: center;color: #39B54A;opacity: 0.6;display: none">
+                <h5 id="dobh5"></h5>
+                <div style="width: 100%;display: flex">
+                    <div style="width: 5%;">
+                        <div class="md-form">
+                            <!--<label style="font-size: xx-large;padding-left: 20px">/</label>-->
+                        </div>
+                    </div>
+                    <div style="width: 20%;">
+                        <div class="md-form">
+                            <input type="number" min="1" max="12" id="mm" name="month" style="border-color: #F4E532;opacity: 0.6;text-align: center;padding: 0px 0px 7px 0px" class="form-control">
+                            <label for="mm" id="mmlab" style="font-size: small;margin-left: 30%">MM</label>
+                        </div>
+                    </div>
+                    <div style="width: 10%;">
+                        <div class="md-form">
+                            <!--<label style="font-size: xx-large;padding-left: 20px">/</label>-->
+                        </div>
+                    </div>
+                    <div style="width: 20%">
+                        <div class="md-form">
+                            <input type="number" min="1" max="31" id="dd" name="date" style="border-color: #F4E532;opacity: 0.6;text-align: center;padding: 0px 0px 7px 0px" class="form-control">
+                            <label for="dd" id="ddlab" style="font-size: small;margin-left: 30%">DD</label>
+                        </div>
+                    </div>
+                    <div style="width: 10%;">
+                        <div class="md-form">
+                            <!--<label style="font-size: xx-large;padding-left: 20px">/</label>-->
+                        </div>
+                    </div>
+                    <div style="width: 30%">
+                        <div class="md-form">
+                            <input type="number" min="1970" max="2016" id="yy" name="year" class="form-control" style="border-color: #F4E532;opacity: 0.6;text-align: center;padding: 0px 0px 7px 0px">
+                            <label for="yy" id="yylab" style="font-size: small;margin-left: 30%">YYYY</label>
+                        </div>
+                    </div>
+                    <div style="width: 5%;">
+                        <div class="md-form">
+                            <!--<label style="font-size: xx-large;padding-left: 20px">/</label>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="emaildiv"  style="text-align:center;color: #39B54A;opacity: 0.6;display: none">
+                <h5 id="emailh5"></h5>
+                <input id="emailinput" type="text" class="col-lg-12" style="border-color: #F4E532;opacity: 0.6;text-align: center;padding: 0px 0px 7px 0px;color: #39B54A">
+            </div>
+            <div id="twitterdiv"  style="text-align:center;color: #39B54A;opacity: 0.6;display: none">
+                <h5 id="twitterh5"></h5>
+                <input id="twitterinput" type="text" class="col-lg-12" style="border-color: #F4E532;opacity: 0.6;text-align: center;padding: 0px 0px 7px 0px;color: #39B54A">
+            </div>
+            <div id="submitbtndiv" style="text-align:center;display: none">
+                <Button type="submit" id="startbtn" class="btn" style="border-radius: 5px">Start</Button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="js/jquery-2.2.3.min.js"></script>
+<script type="text/javascript" src="js/mdb.min.js"></script>
+<script>
+    $(function () {
+        $('#firstnameinput').keypress(function (e) {
+            if(e.which===13){
+                $('#firstnamediv').hide();
+                $('#lastnameh5').text("hi "+$('#firstnameinput').val()+"! Whats your last name?");
+                $('#lastnamediv').show();
+                $('#lastnameinput').focus();
+                return false;
+            }
+        });
+        $('#lastnameinput').keypress(function (e) {
+            if(e.which===13){
+                $('#lastnamediv').hide();
+                $('#dobh5').text($('#firstnameinput').val()+"! Your Date of Birth Please")
+                $('#dobdiv').show();
+                $('#mm').focus();
+                return false;
+            }
+        });
+        $('#yy').keypress(function (e) {
+           if(e.which===13){
+               $('#dobdiv').hide();
+               $('#emailh5').text("Provide your email");
+               $('#emaildiv').show();
+               $('#emailinput').focus();
+               return false
+           }
+        });
+        $('#emailinput').keypress(function (e) {
+            if(e.which===13){
+                $('#emaildiv').hide();
+                $('#twitterh5').text("Provide your twitter name");
+                $('#twitterdiv').show();
+                $('#twitterinput').focus();
+                return false;
+            }
+        });
+        $('#twitterinput').keypress(function (e) {
+            if(e.which===13){
+                $('#twitterdiv').hide();
+                $('#submitbtndiv').show();
+                return false;
+            }
+        });
+    });
+</script>
+</html>

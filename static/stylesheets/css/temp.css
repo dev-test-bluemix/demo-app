@@ -1,0 +1,22 @@
+.x1
+{
+    float:left;
+    width:100%;
+    background:orange;
+}
+
+.x2
+{
+    display:block;
+    float:left;
+    padding: 12.5%;
+    width:auto;
+    height:auto;
+    margin:12%;
+    border-radius:50%;
+    -moz-border-radius:50%;
+    -webkit-border-radius:50%;
+    -khtml-border-radius: 50%;
+    background:red;
+    text-align:center;
+}

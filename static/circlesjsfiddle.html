@@ -1,0 +1,184 @@
+<style rel="stylesheet">
+    body { padding: 2em; }
+    #container { position: relative; }
+    #financecenter { width: 170px; height: 170px; position: absolute; background: rgba(60, 186, 84, 0.2);border-radius:50%;border: 5px solid #3cba54;  }
+    .field {border-radius:50%;position: absolute; background: #f00;text-align: center;vertical-align: middle }
+</style>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Avenir" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Material Design Bootstrap -->
+    <link href="css/mdb.min.css" rel="stylesheet">
+    <title>Happilytics</title>
+</head>
+<body>
+<div style="width: 100%;height: 100%">
+    <div class="col-lg-6" style="height: 50%;background: white;text-align: center" id="container">
+        <label id="info"></label>
+        <div id="financecenter"></div>
+        <!--<label style="margin-top: 30%;font-size: x-large">Finance</label><br><label style="font-size: large;margin-top: -10px">6/10</label>-->
+        <div class="field" id="0" style="border: 3px solid #15FFB1;background: rgba(21, 255, 177,0.2)"></div>
+        <div class="field" id="1" style="border: 3px solid #157CFF;background: rgba(21, 124, 255,0.2)"></div>
+        <div class="field" id="2" style="border: 3px solid #7F15FF;background: rgba(127, 21, 255,0.2)"></div>
+        <div class="field" id="3" style="border: 3px solid #FF15DF;background: rgba(255, 21, 223,0.2)"></div>
+        <div class="field" style="display: none">5</div>
+        <div class="field" style="display: none">6</div>
+        <div class="field" id="6" style="border: 3px solid #FF9815;background: rgba(255,152,21,0.2)"></div>
+        <div class="field" id="7" style="border: 3px solid #7FFF15;background: rgba(127, 255, 21,0.2)"></div>
+        <!--
+        <div class="field">5</div>
+        <div class="field">6</div>
+        -->
+    </div>
+    <div class="col-lg-6" style="height: 50%;background: white"></div>
+    <div class="col-lg-6" style="height: 50%;background: white"></div>
+    <div class="col-lg-6" style="height: 50%;background: white"></div>
+</div>
+
+
+</body>
+<script type="text/javascript" src="js/jquery-2.2.3.min.js"></script>
+<script type="text/javascript" src="js/mdb.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+
+<script>
+    var arr = [60,50,40,30,0,0,80,70];
+    var positionx = [0,0,0,0,0,0,0,0];
+    var positiony = [0,0,0,0,0,0,0,0];
+    var positionsx = [0,0,0,0,0,0,0,0];
+    var positionsy = [0,0,0,0,0,0,0,0];
+    var checks = [false,false,false,false,false,false,false,false];
+    var highele = 45;
+    $('.field').draggable({
+        start:function (event,ui) {
+            var bg = $(this).css("border").split("solid ")[1];
+            $(this).css({
+                "-webkit-box-shadow": '0 0 30px '+ bg,
+                "-moz-box-shadow": '0 0 30px '+ bg,
+                "box-shadow": '0 0 30px '+ bg
+            });
+        },
+        stop:function (event, ui) {
+            if(checks[parseInt($(this).attr("id"))]==false){
+                var x =positionx[parseInt($(this).attr("id"))];
+                var y =positiony[parseInt($(this).attr("id"))];
+                var h  = arr[parseInt($(this).attr("id"))];
+
+                $(this).css({
+                    left: x + 'px',
+                    top: y + 'px',
+                    width: h + 'px',
+                    height: h + 'px',
+                    "-webkit-box-shadow": 'none',
+                    "-moz-box-shadow": 'none',
+                    "box-shadow": 'none'
+                });
+            }else{
+                $(this).css({
+                    "-webkit-box-shadow": 'none',
+                    "-moz-box-shadow": 'none',
+                    "box-shadow": 'none'
+                });
+            }
+        }
+    });
+    $('#financecenter').droppable({
+        drop: function (event, ui) {
+//            $("#info").html("dropped!");
+            var x =positionsx[parseInt($(ui.draggable).attr("id"))];
+            var y =positionsy[parseInt($(ui.draggable).attr("id"))];
+            var h  = arr[parseInt($(ui.draggable).attr("id"))]/2;
+            checks[parseInt($(ui.draggable).attr("id"))] = true;
+            $(ui.draggable).css({
+                left: x + 'px',
+                top:  y + 'px',
+                width: h + 'px',
+                height: h + 'px'
+            });
+            $(event.target).css({
+                "-webkit-box-shadow": 'none',
+                "-moz-box-shadow": 'none',
+                "box-shadow": 'none'
+            });
+        },
+        over: function (event, ui) {
+//            $("#info").html($(ui.draggable).attr("id"));
+            var top = parseInt($(event.target).css("top"));
+            var left = parseInt($(event.target).css("left"));
+            $(event.target).css({
+                "-webkit-box-shadow": '0 0 100px #39B54A',
+                "-moz-box-shadow": '0 0 100px #39B54A',
+                "box-shadow": '0 0 100px #39B54A'
+            });
+        },
+        out: function (event, ui) {
+            var x =positionx[parseInt($(ui.draggable).attr("id"))];
+            var y =positiony[parseInt($(ui.draggable).attr("id"))];
+            checks[parseInt($(ui.draggable).attr("id"))] = false;
+//            $("#info").html(x +"  "+ y);
+            $(event.target).css({
+                width: '170px',
+                height: '170px',
+                "-webkit-box-shadow": 'none',
+                "-moz-box-shadow": 'none',
+                "box-shadow": 'none'
+            });
+            $(ui.draggable).css({
+                left: x + 'px',
+                top:  y + 'px'
+            });
+        }
+
+    });
+    function addedradius(bigrad,smallradius) {
+        return
+    }
+    $(window).on("load resize", function () {
+        var fields = $('.field'), container = $('#container'), width = container.width(), height = container.height();
+        var angle = 0, step = (2*Math.PI) / fields.length;
+        var radius = 90 + highele;
+        var shrinkradius = 40;
+        $('#financecenter').css({"top":(height/2)-$("#financecenter").height()/2,"left":(width/2)-$("#financecenter").width()/2});
+        fields.each(function(i) {
+            $(this).width(arr[i]);
+            $(this).height(arr[i]);
+            var x = Math.round(width/2 + radius * Math.cos(angle) - $(this).width()/2);
+            var y = Math.round(height/2 + radius * Math.sin(angle) - $(this).height()/2);
+            var sx = Math.round(width/2 + shrinkradius * Math.cos(angle) - $(this).width()/2)+20;
+            var sy = Math.round(height/2 + shrinkradius * Math.sin(angle) - $(this).height()/2)+20;
+            if(i!=4 && i!=5){
+                positionx[i]=x;
+                positionsx[i]=sx;
+                positiony[i]=y;
+                positionsy[i]=sy;
+            }
+            if(checks[parseInt($(this).attr("id"))]==false){
+                $(this).css({
+                    "left": x + 'px',
+                    "top": y + 'px'
+                });
+            }else{
+                var h = arr[i]/2;
+                $(this).css({
+                    "left": sx + 'px',
+                    "top": sy + 'px',
+                    "width": h+'px',
+                    "height": h+'px'
+                });
+            }
+
+            angle += step;
+        });
+    });
+</script>
+</html>
